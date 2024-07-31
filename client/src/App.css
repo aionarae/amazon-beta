@@ -1,0 +1,14 @@
+#root {
+  /* lettering and buttons text and background */
+  --white: #ffffff;
+  /* prime part of logo for us is beta */
+  --battleship-grey: #999999;
+  /* search button bg */
+  --earth-yellow: #febd69;
+  /* amazon arrow and cart counter digit */
+  --orange-peel: #fe9800;
+  /* icon in side of seach button and secondary menu headers */
+  --gunmetal: #232f33;
+  /* header and footer bg */
+  --rich-black: #131921;
+}
