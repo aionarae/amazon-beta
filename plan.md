@@ -11,11 +11,48 @@
 - [ ] <Task Here>
 
 ## Front-End
-- [ ] <Task Here>
+### Header
+- [ ] Title
+- [ ] Menu Button
+- [ ] Cart Button
+  - [ ] Clickable button
+  - [ ] Item counter
+
+
+### Search
+- [ ] Search Input
+- [ ] Search Button
+
+### General
+- [ ] Product Card
+  - [ ] title
+  - [ ] image
+  - [ ] description
+  - [ ] price
+  - [ ] add to cart button
+  - [ ] buy now button
+
+### Menu
+- [ ] title
+- [ ] clickable menu list
+  - [ ] login
+  - [ ] profile
+  - [ ] orders
+  - [ ] logout
+
+### Cart
+- [ ] title
+- [ ] price display
+- [ ] item list
+- [ ] checkout button
+
+### Footer
+- [ ] <Task Here> 
 
 ## Icebox
 - [ ] Boolean or tag component in the typedefs and models that allows certain items to appear higher in the seach results
-- [ ] <Task Here>
+- [ ] Secondary popup page that expands when user clicks on a specific product
+- [ ] wishlist of items saved for later
 
 
 - [ ] <Task Here>
