@@ -8,6 +8,31 @@ import Footer from './components/Footer/index'
 import './App.css'
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('Home')
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      // case 'Home' :
+      //   return cards and products
+      case 'Account':
+        return <Account />
+      case 'Orders':
+        return <SkillList />
+      case 'Projects':
+        return <Resume />
+      default:
+        return <div className='products'>
+        {productArray ? productArray.map((product, index) => {
+          return <Card key={index} product={product} />
+        }) : ''}
+      </div>
+    }
+  }
+
   const [productArray, setProductArray] = useState([]);
 
   useEffect(() => {
@@ -24,12 +49,8 @@ function App() {
     <>
       <Header />
       <Search />
-      <Menu />
-      <div className='products'>
-        {productArray ? productArray.map((product, index) => {
-          return <Card key={index} product={product} />
-        }) : ''}
-      </div>
+      <Menu onPageChange = {handlePageChange}/>
+      <div> {renderPage()} </div>
       <Cart />
       <Footer />
     </>
