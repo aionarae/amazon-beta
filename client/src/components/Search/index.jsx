@@ -6,7 +6,7 @@ export default function Search() {
       <div> 
         <input type="text" placeholder="Search for a product" />
         {/* displays a search button with a magnifying glass */}
-        <button><FontAwesomeIcon icon={faSearch} /></button>
+        <button>< faSearch /></button>
       </div>
     </>
   )

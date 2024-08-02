@@ -11,7 +11,7 @@ function App() {
   const [productArray, setProductArray] = useState([]);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products?limit=100")
+    fetch("https://fakestoreapi.com/products/")
       .then((response) => response.json())
       .then((data) => {
         setProductArray(data.results);

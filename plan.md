@@ -3,8 +3,8 @@
 ## Setup 
 - [ ] Finish general setup
 - [ ] Live code VS plugin
-- [ ] Set up some kind of KahnBahn Board on gitHub or notion
-- [ ] Establish dependencies in package.json files
+- [X] Set up some kind of KahnBahn Board on gitHub or notion
+- [X] Establish dependencies in package.json files
 - [ ] <Task Here>
 
 ## Backend 
@@ -20,17 +20,17 @@
 
 
 ### Search
-- [ ] Search Input
-- [ ] Search Button
+- [X] Search Input
+- [X] Search Button
 
 ### General
-- [ ] Product Card
-  - [ ] title
-  - [ ] image
-  - [ ] description
-  - [ ] price
-  - [ ] add to cart button
-  - [ ] buy now button
+- [X] Product Card
+  - [X] title
+  - [X] image
+  - [X] description
+  - [X] price
+  - [X] add to cart button
+  - [X] buy now button
 
 ### Menu
 - [ ] title
