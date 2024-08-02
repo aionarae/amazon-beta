@@ -1,6 +1,4 @@
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from 'react-icons/fa'
 
 export default function Search() {
   return (
