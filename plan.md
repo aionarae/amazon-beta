@@ -33,12 +33,12 @@
   - [X] buy now button
 
 ### Menu
-- [ ] title
-- [ ] clickable menu list
-  - [ ] login
-  - [ ] profile
-  - [ ] orders
-  - [ ] logout
+- [X] title
+- [X] clickable menu list
+  - [X] login
+  - [X] profile
+  - [X] orders
+  - [X] logout
 
 ### Cart
 - [ ] title
