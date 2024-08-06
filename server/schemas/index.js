@@ -2,19 +2,10 @@
 // schema/index.js
 const { gql } = require('apollo-server');
 
-// Define your type definitions
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
+const typeDefs = require('./typeDefs');
+const resolvers = require('./resolvers');
 
-// Define your resolvers
-const resolvers = {
-  Query: {
-    hello: () => 'Hello, world!',
-  },
-};
+// Define your type definitions
 
 // Export the type definitions and resolvers
 module.exports = {
@@ -22,8 +13,7 @@ module.exports = {
   resolvers,
 };
 
-const typeDefs = require('./typeDefs');
-const resolvers = require('./resolvers');
+
 
 module.exports = { typeDefs, resolvers };
 
