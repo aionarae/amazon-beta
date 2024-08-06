@@ -8,6 +8,14 @@ import Footer from './components/Footer/index'
 import './App.css'
 
 function App() {
+
+  const [cart, setCart] = useState([]);
+
+
+  const addToCart = (product) => {
+    setCart([...cart, product.id]);
+  }
+  
   const [currentPage, setCurrentPage] = useState('Home')
 
   const handlePageChange = (page) => {
@@ -27,7 +35,7 @@ function App() {
       default:
         return <div className='products'>
         {productArray ? productArray.map((product, index) => {
-          return <Card key={index} product={product} />
+          return <Card key={index} product={product} addToCart={addToCart} />
         }) : ''}
       </div>
     }
