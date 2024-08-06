@@ -14,11 +14,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-
+    "@apollo/server": "^4.10.5",
     "apollo-server": "^3.13.0",
-
-    "apollo-server-express": "^3.13.0"
-
+    "apollo-server-express": "^3.13.0",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "bcrypt": "^5.1.1",
+    "express": "^4.19.2",
+    "graphql": "^16.9.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2",
+    "react": "^18.3.1",
+    "stripe": "^16.6.0"
   },
   "devDependencies": {
     "concurrently": "^7.0.2",
