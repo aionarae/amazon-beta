@@ -5,13 +5,6 @@ const Order = require('./Order');
 const OrderItem = require('./OrderItem');
 const Review = require('./Review');
 const Cart = require('./Cart');
-const CartItem = require('./CartItem');
-const Payment = require('./Payment');
-const Shipping = require('./Shipping');
-const Address = require('./Address');
-const Coupon = require('./Coupon');
-const Contact = require('./Contact');
-const Wishlist = require('./Wishlist');
 
 module.exports = {
   Category,
@@ -20,12 +13,5 @@ module.exports = {
   Order,
   OrderItem,
   Review,
-  Cart,
-  CartItem,
-  Payment,
-  Shipping,
-  Address,
-  Coupon,
-  Contact,
-  Wishlist,
+  Cart
 };
