@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FaSearch } from 'react-icons/fa';
 
 export default function Cart() {
     const [cart, setCart] = useState([]);
@@ -42,6 +43,8 @@ export default function Cart() {
             })}
         </div>
         <h3>Total: ${total}</h3>
+        <FaSearch />
         </div>
     );
 }
+export default Cart;
