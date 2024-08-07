@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function Products() {
+const Products = ({ cart, setCart }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -13,14 +13,21 @@ function Products() {
       .catch(error => console.error('Error fetching products:', error));
   }, []);
 
-  const handleAddToCart = (product) => {
-    // Implement add to cart functionality here
-    console.log('Added to cart:', product);
-  };
+  // Load cart from localStorage
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(savedCart);
+  }, []);
 
-  const handleBuyNow = (product) => {
-    // Implement buy now functionality here
-    console.log('Buy now clicked for:', product);
+  // Save cart to localStorage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  // Function to add a product to the cart
+  const handleAddToCart = (product) => {
+    setCart([...cart, product.id]);
+    console.log('Added to cart:', product);
   };
 
   return (

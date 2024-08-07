@@ -1,7 +1,5 @@
 
-const handleAddToCart = (product) => {
-  addToCart(product.id); 
-}
+
 export default function Card( {product} ) {
   return (
     <>
@@ -13,7 +11,7 @@ export default function Card( {product} ) {
         </div>
         <p className='product-price'>${product.price}</p>
         <div className='buttons'>
-          <button className='cart-button' onClick={handleAddToCart}>Add to Cart</button>
+          <button className='cart-button'>Add to Cart</button>
           <button className='buy-button'>Buy Now</button>
         </div>
       </div>

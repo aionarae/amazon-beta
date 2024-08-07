@@ -1,10 +1,12 @@
-import React from 'react';
+import {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCogs, faUser, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 // Header component definition
 export default function Header() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // useNavigate hook to programmatically navigate to different routes
   const navigate = useNavigate();
 
@@ -40,10 +42,12 @@ export default function Header() {
         <button onClick={handleHomeClick}>
           <FontAwesomeIcon icon={faHome} />
         </button>
+        {isLoggedIn && (
         <button onClick={handleUserSettingsClick}>
           <FontAwesomeIcon icon={faCogs} />
           <FontAwesomeIcon icon={faUser} />
         </button>
+        )}
         <button onClick={handleCartClick}>
           <FontAwesomeIcon icon={faShoppingCart} />
         </button>
