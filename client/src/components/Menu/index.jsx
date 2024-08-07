@@ -1,22 +1,25 @@
-export default function Menu() {
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+export default function Menu({ isLoggedIN }) {
   return (
-    <div className='menu-conatiner'>
+    <div className='menu-container'>
       <h2>Menu</h2>
       <ul className='menu-items'>
         {!isLoggedIN ? (
           <>
-            <li><a href="/login"></a></li>
+            <li><Link to="/login">Login</Link></li>
           </>
-          ) : (
-            <>
-            {/* the home link is not yet functional I am unsure how to connect it to the app */}
-              <li><a href="/home">Home</a></li>
-              <li><a href="/account">Account</a></li>
-              <li><a href="/orders">Orders</a></li>
-              <li><a href="/logout">Logout</a></li>
-            </>
-          )}
+        ) : (
+          <>
+            {/* the home link is now functional */}
+            <li><Link to="/home">Home</Link></li>
+            <li><Link to="/account">Account</Link></li>
+            <li><Link to="/orders">Orders</Link></li>
+            <li><Link to="/logout">Logout</Link></li>
+          </>
+        )}
       </ul>
     </div>
-  )
+  );
 }
