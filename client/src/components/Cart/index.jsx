@@ -43,7 +43,7 @@ export default function Cart() {
             })}
         </div>
         <h3>Total: ${total}</h3>
-        <FaSearch />
+        {/* <FaSearch /> */}
         </div>
     );
 }
