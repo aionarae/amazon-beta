@@ -32,6 +32,8 @@ function App() {
         return <SkillList />
       case 'Projects':
         return <Resume />
+      case 'Checkout':
+        return <Checkout />
       default:
         return <div className='products'>
         {productArray ? productArray.map((product, index) => {
