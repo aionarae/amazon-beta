@@ -117,11 +117,17 @@ img {
 }
 
 .header-buttons button {
-  background: none;
-  border: none;
-  margin: 0 5px;
-  font-size: 24px;
-  cursor: pointer;
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #100f0f;
+  transition: background-color 0.3s;
+}
+
+.header-buttons button:hover {
+  background-color: #0056b3;
 }
 
 .auth-button {

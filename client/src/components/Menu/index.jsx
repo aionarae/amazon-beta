@@ -6,11 +6,6 @@ export default function Menu({ isLoggedIN }) {
     <div className='menu-container'>
       <h2>Menu</h2>
       <ul className='menu-items'>
-        {!isLoggedIN ? (
-          <>
-            <li><Link to="/login">Login</Link></li>
-          </>
-        ) : (
           <>
             {/* the home link is now functional */}
             <li><Link to="/home">Home</Link></li>
@@ -18,7 +13,6 @@ export default function Menu({ isLoggedIN }) {
             <li><Link to="/orders">Orders</Link></li>
             <li><Link to="/logout">Logout</Link></li>
           </>
-        )}
       </ul>
     </div>
   );
