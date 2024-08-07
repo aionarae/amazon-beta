@@ -4,16 +4,21 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
+
+    // get all users
+
     //get a user by username
-    user: async (parent, { username }) => {
-      return
+    user: async (parent,args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: 'order.products',
+          populate: 'category'
+        });
 
-      
-    },
+        user.order.sort((a, b) => b.created_at - a.created_at);
 
-    // cart
-    cart: async (parent, { _id }) => {
-      return Cart.findById(_id);
+        return user;
+      }
     },
 
     category: async (parent, { _id }) => {
