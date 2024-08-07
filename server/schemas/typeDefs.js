@@ -23,6 +23,15 @@ const typeDefs = gql`
     product: Product
   }
 
+  type Category {
+    _id: ID
+    name: String!
+    description: String
+    image: String
+    status: String
+    created_at: String
+  }
+
   type Order {
     _id: ID
     user: User
@@ -58,6 +67,15 @@ const typeDefs = gql`
     rating: Int!
     review: String!
     created_at: String
+  }
+
+  type Query {
+    user(username: String!): User
+    cart(_id: ID!): Cart
+    category(_id: ID!): Category
+    order(_id: ID!): Order
+    product(_id: ID!): Product
+    review(_id: ID!): Review
   }
 
   type Mutation {
