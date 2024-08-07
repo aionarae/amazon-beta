@@ -23,25 +23,37 @@ export default function Header() {
     navigate('/'); // Navigate to the landing page
   };
 
+  // Function to handle click event on the login button
+  const handleLoginClick = () => {
+    navigate('/login'); // Navigate to the login page
+  };
+
+  // Function to handle click event on the sign-up button
+  const handleSignUpClick = () => {
+    navigate('/signup'); // Navigate to the sign-up page
+  };
+
   return (
-    <>
-      {/* Logo image */}
+    <header>
       <img src='/public/assets/logo.png' alt='Amazon Logo' />
-      <div>
-        {/* Home button with home icon */}
+      <div className="header-buttons">
         <button onClick={handleHomeClick}>
           <FontAwesomeIcon icon={faHome} />
         </button>
-        {/* Toggle menu button with cogs and user icons */}
         <button onClick={handleUserSettingsClick}>
           <FontAwesomeIcon icon={faCogs} />
           <FontAwesomeIcon icon={faUser} />
         </button>
-        {/* Toggle cart button with shopping cart icon */}
         <button onClick={handleCartClick}>
           <FontAwesomeIcon icon={faShoppingCart} />
         </button>
+        <button onClick={handleLoginClick} className="auth-button">
+          Login
+        </button>
+        <button onClick={handleSignUpClick} className="auth-button">
+          Sign Up
+        </button>
       </div>
-    </>
+    </header>
   );
 }
