@@ -1,48 +1,66 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Auth from '../utils/auth'; // This will now work with default export
+import { Form } from 'react-bootstrap';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations'; 
 
 const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated, setValidated] = useState(false);
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
   const [showAlert, setShowAlert] = useState(false);
+  const [validated] = useState();
   const [loading, setLoading] = useState(false);
+  const [login] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    // Simple validation check
+    
     const form = event.currentTarget;
-    if (!form.checkValidity()) {
+    if (form.checkValidity() === false) {
+      event.preventDefault();
       event.stopPropagation();
-      setValidated(true);
-      return;
+      
     }
 
     setLoading(true);
 
-    const { email, password } = userFormData;
-    const isAuthenticated = Auth.login(email, password);
+    try {
+      const { data } = await login({
+        variables: { ...userFormData }
+      });
 
-    if (isAuthenticated) {
-      // Handle successful login
-      // Redirect or update state as needed
-    } else {
+      const { token } = data.login;
+      Auth.login(token);
+    } catch (err) {
+      console.error(err);
       setShowAlert(true);
+    } finally {
+      setLoading(false);
+      setUserFormData({ username: '', email: '', password: ''});
     }
-
-    setLoading(false);
-    setUserFormData({ email: '', password: '' });
-  };
+  }
 
   return (
     <>
-      <form noValidate validated={validated.toString()} onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {showAlert && <div className="alert alert-danger">Something went wrong with your login credentials!</div>}
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            placeholder="Your username"
+            name="username"
+            onChange={handleInputChange}
+            value={userFormData.username}
+            required
+          />
+          <div className="invalid-feedback">Username is required!</div>
+        </div>
+
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -74,7 +92,7 @@ const LoginForm = () => {
         >
           {loading ? 'Loading...' : 'Submit'}
         </button>
-      </form>
+      </Form>
     </>
   );
 };

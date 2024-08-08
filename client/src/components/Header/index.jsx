@@ -1,14 +1,18 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCogs, faUser, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import Auth from '../../utils/auth';
 
 // Header component definition
 export default function Header() {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // useNavigate hook to programmatically navigate to different routes
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoggedIn(Auth.loggedIn());
+  }, []);
 
   // Function to handle click event on the shopping cart icon
   const handleCartClick = () => {
@@ -51,12 +55,23 @@ export default function Header() {
         <button onClick={handleCartClick}>
           <FontAwesomeIcon icon={faShoppingCart} />
         </button>
+        <div className="auth-buttons">
+        {!isLoggedIn && (
+          <>
         <button onClick={handleLoginClick} className="auth-button">
           Login
         </button>
         <button onClick={handleSignUpClick} className="auth-button">
           Sign Up
         </button>
+          </>
+        )}
+        {isLoggedIn && (
+        <button onClick={Auth.logout} className="auth-button">
+          Logout
+        </button>
+        )}
+      </div>
       </div>
     </header>
   );
