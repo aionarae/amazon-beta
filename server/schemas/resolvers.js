@@ -5,11 +5,12 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
 
-    user: async () => User.find({}),
+    user: async () => {
+      return await User.find()
+    },
 
-
-    categories: async (parent, { _id }) => {
-      return Category.findById(_id);
+    categories: async () => {
+      return await Category.find();
     },
 
     order: async (parent, { _id }) => {
@@ -18,7 +19,7 @@ const resolvers = {
 
     // product
     product: async (parent, { _id }) => {
-      return Product.findById(_id);
+      return await Product.findById(_id).populate('category');
     },
 
     // review
