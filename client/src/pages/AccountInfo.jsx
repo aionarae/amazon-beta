@@ -1,4 +1,7 @@
 //create a header for the account info page
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+
 function AccountInfo () {
     return (
         <div className='account-info'>
