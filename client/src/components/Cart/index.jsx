@@ -6,18 +6,18 @@ export default function Cart({ cart, setCart }) {
   const [productArray, setProductArray] = useState([]);
   const [total, setTotal] = useState(0);
 
-useEffect(() => {
-    fetch("https://fakestoreapi.com/products/")
-    .then((response) => response.json())
-    .then((data) => {
-        setProductArray(data);
-    })
-    .catch((error) => {
-        console.error("Error fetching products:", error);
-    });
-}, []);
+    useEffect(() => {
+        fetch("https://fakestoreapi.com/products/")
+        .then((response) => response.json())
+        .then((data) => {
+            setProductArray(data);
+        })
+        .catch((error) => {
+            console.error("Error fetching products:", error);
+        });
+    }, []);
 
-useEffect(() => {
+    useEffect(() => {
     let total = 0;
     cart.forEach((id) => {
     const product = productArray.find((product) => product.id === id);
@@ -29,6 +29,7 @@ useEffect(() => {
     
     const removeFromCart = (id) => {
     setCart(cart.filter((productId) => productId !== id));
+    }
 
     // adding stripe integration to the CHECKOUT button
     const makePayment = async () => {
@@ -79,5 +80,6 @@ useEffect(() => {
         <button onClick={makePayment}> Checkout </button>
       </div>
     </div>
-  );
+    );
 }
+    
