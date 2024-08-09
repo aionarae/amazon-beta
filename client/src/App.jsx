@@ -1,10 +1,10 @@
-// src/App.jsx
 import { Outlet } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
-import Header from './components/Header/index';
+import Header from './components/Header/index'; // Ensure Header is imported
 import Footer from './components/Footer/index';
 import './App.css';
+import './index.css';
 
 const httpLink = createHttpLink({ uri: '/graphql' });
 const authLink = setContext((_, { headers }) => {
@@ -20,13 +20,14 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Header />
+      <Header /> 
       <main>
-        <Outlet />
+        <Outlet /> 
       </main>
-      <Footer />
+      <Footer /> 
     </ApolloProvider>
   );
 }
 
 export default App;
+

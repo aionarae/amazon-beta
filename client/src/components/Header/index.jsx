@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCogs, faUser, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Auth from '../../utils/auth';
+import Search from '../Search/index';
 
 // Header component definition
 export default function Header() {
@@ -42,6 +43,7 @@ export default function Header() {
   return (
     <header>
       <img src='/public/assets/logo.png' alt='Amazon Logo' />
+        <Search />
       <div className="header-buttons">
         <button onClick={handleHomeClick}>
           <FontAwesomeIcon icon={faHome} />
