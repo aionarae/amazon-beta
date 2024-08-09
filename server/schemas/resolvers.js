@@ -5,23 +5,10 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
 
-    // get all users
+    user: async () => User.find({}),
 
-    //get a user by username
-    user: async (parent,args, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'order.products',
-          populate: 'category'
-        });
 
-        user.order.sort((a, b) => b.created_at - a.created_at);
-
-        return user;
-      }
-    },
-
-    category: async (parent, { _id }) => {
+    categories: async (parent, { _id }) => {
       return Category.findById(_id);
     },
 
@@ -35,7 +22,7 @@ const resolvers = {
     },
 
     // review
-    review: async (parent, { _id }) => {
+    reviews: async (parent, { _id }) => {
       return Review
     },
 
