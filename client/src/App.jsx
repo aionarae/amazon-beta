@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
+import { useState } from 'react';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import Header from './components/Header/index'; // Ensure Header is imported
 import Footer from './components/Footer/index';
@@ -18,11 +19,12 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const [cart, setCart] = useState([]);
   return (
     <ApolloProvider client={client}>
-      <Header /> 
+      <Header cart={cart} setCart={setCart} />
       <main>
-        <Outlet /> 
+        <Outlet context={{ cart, setCart }}/>
       </main>
       <Footer /> 
     </ApolloProvider>

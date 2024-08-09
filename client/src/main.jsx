@@ -4,7 +4,6 @@ import App from './App.jsx'
 import './index.css'
 import AccountInfo from './pages/AccountInfo.jsx';
 import LandingPage from './pages/LandingPage.jsx';
-import Cart from './components/Cart/index.jsx';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -21,9 +20,6 @@ const router = createBrowserRouter([
       }, {
         path: '/accountinfo',
         element: <AccountInfo />
-      }, {
-        path: '/cart',
-        element: <Cart />
       },
       {
         path: '/login',

@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { FaSearch } from 'react-icons/fa';
 import {loadStripe} from '@stripe/stripe-js';
 
-export default function Cart({ cart = [], setCart }) {
-const [productArray, setProductArray] = useState([]);
-const [total, setTotal] = useState(0);
+export default function Cart({ cart, setCart }) {
+  const [productArray, setProductArray] = useState([]);
+  const [total, setTotal] = useState(0);
 
 useEffect(() => {
     fetch("https://fakestoreapi.com/products/")
@@ -28,8 +28,7 @@ useEffect(() => {
     }, [cart, productArray]);
     
     const removeFromCart = (id) => {
-        setCart(cart.filter((productId) => productId !== id));
-    };
+    setCart(cart.filter((productId) => productId !== id));
 
     // adding stripe integration to the CHECKOUT button
     const makePayment = async () => {
@@ -61,32 +60,24 @@ useEffect(() => {
     };
     
     return (
-        <div className="cart">
-        <h2>Cart</h2>
-        <div className="cart-items">
-            {cart.map((id) => {
-            const product = productArray.find((product) => product.id === id);
-            return (
-                <div key={id} className="cart-item">
-                <h3>{product.title}</h3>
-                <p>${product.price}</p>
-                <button onClick={() => removeFromCart(id)}>Remove</button>
-                </div>
-            );
-            })}
+    <div className="cart">
+      <h2>Cart</h2>
+      <div className="cart-items">
+        {cart.map((id) => {
+          const product = productArray.find((product) => product.id === id);
+          return product ? (
+            <div key={id} className="cart-item">
+              <span>{product.title}</span>
+              <span>${product.price.toFixed(2)}</span>
+              <button onClick={() => removeFromCart(id)}>Remove</button>
+            </div>
+          ) : null;
+        })}
         </div>
-        <h3>Total: ${total}</h3>
+      <div className="cart-total">
+        <h3>Total: ${total.toFixed(2)}</h3>
         <button onClick={makePayment}> Checkout </button>
-        </div>
-    );
-    } else {
-        console.warn(`Product with id ${id} not found.`);
-    }
-        setTotal(total); 
-        [cart, productArray];
-
-const removeFromCart = (id) => {
-    setCart(cart.filter((productId) => productId !== id));
-};
-
-
+      </div>
+    </div>
+  );
+}
