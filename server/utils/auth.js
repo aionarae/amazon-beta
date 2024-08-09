@@ -30,8 +30,6 @@ authMiddleware: function ({ req }) {
       return req;
     }
 
-    console.log("Token received:", token);
-    
     try {
       // Verify the token and attach user data to the request object.
       const { data } = jwt.verify(token, secret, { maxAge: expiration });

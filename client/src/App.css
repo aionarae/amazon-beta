@@ -107,9 +107,6 @@ header {
   border-bottom: 1px solid #ddd;
 }
 
-img {
-  height: 50px;
-}
 
 .header-buttons {
   display: flex;
