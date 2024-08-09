@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import Auth from '../utils/auth'; // If needed for post-signup actions
+import Auth  from '../utils/auth'; // If needed for post-signup actions
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../utils/mutations';
 
 const SignUpForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '', confirmPassword: '' });
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '', confirmPassword: '' });
   const [showAlert, setShowAlert] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [createUser] = useMutation(CREATE_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,21 +26,18 @@ const SignUpForm = () => {
     setLoading(true);
 
     try {
-      const response = await signUpUser(userFormData);
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Something went wrong!');
-      }
+      const { data } = await createUser({
+        variables: { ...userFormData }
+      });
 
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token); // Or any other post-signup action
+      const { token } = data.createUser;
+      Auth.login(token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
     } finally {
       setLoading(false);
-      setUserFormData({ email: '', password: '', confirmPassword: '' });
+      setUserFormData({ username: '', email: '', password: '', confirmPassword: ''});
     }
   };
 
@@ -49,6 +49,20 @@ const SignUpForm = () => {
         </div>
       )}
       <form noValidate onSubmit={handleFormSubmit} className="signup-form">
+      <div className="form-group">
+          <label htmlFor='username'>Username</label>
+          <input
+            type='username'
+            placeholder='Your Username'
+            name='username'
+            onChange={handleInputChange}
+            value={userFormData.username}
+            required
+            className="form-control"
+          />
+          <div className="feedback">Username is required!</div>
+        </div>
+
         <div className="form-group">
           <label htmlFor='email'>Email</label>
           <input

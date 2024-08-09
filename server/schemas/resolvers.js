@@ -40,6 +40,25 @@ const resolvers = {
     },
 
   },
+  Mutation: {
+    createUser: async (parent, { username, email, password }) => {
+        const user = await User.create({ username, email, password });
+        const token = signToken(user);
+        return { token, user };
+    },
+    login: async (parent, { username, email, password }) => {
+        const user = await User.findOne({ username, email });
+        if (!user) {
+            throw new AuthenticationError('Incorrect Uername or Password');
+        }
+        const correctPw = await user.isCorrectPassword(password);
+        if (!correctPw) {
+            throw new AuthenticationError('Incorrect Username or Password');
+        }
+        const token = signToken(user);
+        return { token, user };
+    },
+  }
 }
   
 module.exports = resolvers;
