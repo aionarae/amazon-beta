@@ -54,11 +54,12 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(username: String!): User
-    category(_id: ID!): Category
+    user: User
+    categories: [Category]
     order(_id: ID!): Order
     product(_id: ID!): Product
-    review(_id: ID!): Review
+    reviews(_id: ID!): [Review]
+    checkout(products: [ProductInput]): Checkout
   }
 
   type Mutation {

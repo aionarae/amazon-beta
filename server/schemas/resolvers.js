@@ -5,24 +5,12 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
 
-    // get all users
-
-    //get a user by username
-    user: async (parent,args, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'order.products',
-          populate: 'category'
-        });
-
-        user.order.sort((a, b) => b.created_at - a.created_at);
-
-        return user;
-      }
+    user: async () => {
+      return await User.find()
     },
 
-    category: async (parent, { _id }) => {
-      return Category.findById(_id);
+    categories: async () => {
+      return await Category.find();
     },
 
     order: async (parent, { _id }) => {
@@ -31,11 +19,11 @@ const resolvers = {
 
     // product
     product: async (parent, { _id }) => {
-      return Product.findById(_id);
+      return await Product.findById(_id).populate('category');
     },
 
     // review
-    review: async (parent, { _id }) => {
+    reviews: async (parent, { _id }) => {
       return Review
     },
 
@@ -58,8 +46,37 @@ const resolvers = {
         const token = signToken(user);
         return { token, user };
     },
-  }
-}
+    checkout: async (parent, args, context) => {
+      const url = new URL(context.headers.referer).origin;
+      await Order.create({ products: args.products.map(({ _id }) => _id) });
+      // eslint-disable-next-line camelcase
+      const line_items = [];
+
+      // eslint-disable-next-line no-restricted-syntax
+      for (const product of args.products) {
+        line_items.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: product.name,
+              description: product.description,
+              images: [`${url}/images/${product.image}`]
+            },
+            unit_amount: product.price * 100,
+          },
+          quantity: product.purchaseQuantity,
+        });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`,
+      });
+  },
+}};
   
 module.exports = resolvers;
   

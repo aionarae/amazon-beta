@@ -17,7 +17,6 @@ db.once ('open', async () => {
         password: 'password1234',
         role: 'admin',
         status: 'active',
-        created_at: Date.now ()
       },
       {
         name: 'Test User 2',
@@ -26,7 +25,6 @@ db.once ('open', async () => {
         password: 'password1234',
         role: 'user',
         status: 'active',
-        created_at: Date.now ()
       }
     ]);
 
@@ -38,14 +36,12 @@ db.once ('open', async () => {
         description: 'Category 1 descriptionn',
         image: 'category1.jpg',
         status: 'active',
-        created_at: Date.now ()
       },
       {
         name: 'Category 2',
         description: 'Category 2 description',
         image: 'category2.jpg',
         status: 'active',
-        created_at: Date.now ()
       }
     ]);
 
@@ -60,7 +56,6 @@ db.once ('open', async () => {
         quantity: 10,
         category: categories[0]._id,
         status: 'active',
-        created_at: Date.now ()
       },
       {
         name: 'Product 2',
@@ -69,7 +64,6 @@ db.once ('open', async () => {
         quantity: 20,
         category: categories[1]._id,
         status: 'active',
-        created_at: Date.now ()
       }
     ]);
 
@@ -90,7 +84,6 @@ db.once ('open', async () => {
         ],
         total: 39.97,
         status: 'complete',
-        created_at: Date.now ()
       },
       {
         user: users[1]._id,
@@ -102,7 +95,6 @@ db.once ('open', async () => {
         ],
         total: 59.97,
         status: 'pending',
-        created_at: Date.now ()
       }
     ]);
 
@@ -114,14 +106,12 @@ db.once ('open', async () => {
         rating: 5,
         user: users[0]._id,
         product: products[0]._id,
-        created_at: Date.now ()
       },
       {
         review: 'Review 2',
         rating: 4,
         user: users[1]._id,
         product: products[1]._id,
-        created_at: Date.now ()
       }
     ]);
 
@@ -129,4 +119,3 @@ db.once ('open', async () => {
 
     process.exit ();
 });
-
