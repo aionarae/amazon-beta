@@ -1,70 +1,32 @@
-import { useState, useEffect } from 'react'
-import Header from './components/Header/index'
-import Search from './components/Search/index'
-import Menu from './components/Menu/index'
-import Card from './components/General/index'
-import Cart from './components/Cart/index'
-import Footer from './components/Footer/index'
-import './App.css'
+// src/App.jsx
+import { Outlet } from 'react-router-dom';
+import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
+import Header from './components/Header/index';
+import Footer from './components/Footer/index';
+import './App.css';
+
+const httpLink = createHttpLink({ uri: '/graphql' });
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return { headers: { ...headers, authorization: token ? `Bearer ${token}` : '' } };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 function App() {
-
-  const [cart, setCart] = useState([]);
-
-
-  const addToCart = (product) => {
-    setCart([...cart, product.id]);
-  }
-  
-  const [currentPage, setCurrentPage] = useState('Home')
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      // case 'Home' :
-      //   return cards and products
-      case 'Account':
-        return <Account />
-      case 'Orders':
-        return <SkillList />
-      case 'Projects':
-        return <Resume />
-      case 'Checkout':
-        return <Checkout />
-      default:
-        return <div className='products'>
-        {productArray ? productArray.map((product, index) => {
-          return <Card key={index} product={product} addToCart={addToCart} />
-        }) : ''}
-      </div>
-    }
-  }
-
-  const [productArray, setProductArray] = useState([]);
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products/")
-      .then((response) => response.json())
-      .then((data) => {
-        setProductArray(data.results);
-      });
-
-      console.log(productArray);
-  }, []);
-
   return (
-    <>
+    <ApolloProvider client={client}>
       <Header />
-      <Search />
-      <Menu onPageChange = {handlePageChange}/>
-      <div> {renderPage()} </div>
-      <Cart />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
-    </>
-  )
+    </ApolloProvider>
+  );
 }
 
-export default App
+export default App;

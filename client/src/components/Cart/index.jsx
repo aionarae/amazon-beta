@@ -2,25 +2,28 @@ import { useState, useEffect } from "react";
 import { FaSearch } from 'react-icons/fa';
 import {loadStripe} from '@stripe/stripe-js';
 
-export default function Cart() {
-    const [cart, setCart] = useState([]);
-    const [productArray, setProductArray] = useState([]);
-    const [total, setTotal] = useState(0);
-    
-    useEffect(() => {
-        fetch("https://fakestoreapi.com/products/")
-        .then((response) => response.json())
-        .then((data) => {
-            setProductArray(data);
-        });
-    }, []);
-    
-    useEffect(() => {
-        let total = 0;
-        cart.forEach((id) => {
-        const product = productArray.find((product) => product.id === id);
+export default function Cart({ cart = [], setCart }) {
+const [productArray, setProductArray] = useState([]);
+const [total, setTotal] = useState(0);
+
+useEffect(() => {
+    fetch("https://fakestoreapi.com/products/")
+    .then((response) => response.json())
+    .then((data) => {
+        setProductArray(data);
+    })
+    .catch((error) => {
+        console.error("Error fetching products:", error);
+    });
+}, []);
+
+useEffect(() => {
+    let total = 0;
+    cart.forEach((id) => {
+    const product = productArray.find((product) => product.id === id);
+    if (product) {
         total += product.price;
-        });
+        }});
         setTotal(total);
     }, [cart, productArray]);
     
@@ -76,5 +79,14 @@ export default function Cart() {
         <button onClick={makePayment}> Checkout </button>
         </div>
     );
-}
-export default Cart;
+    } else {
+        console.warn(`Product with id ${id} not found.`);
+    }
+        setTotal(total); 
+        [cart, productArray];
+
+const removeFromCart = (id) => {
+    setCart(cart.filter((productId) => productId !== id));
+};
+
+

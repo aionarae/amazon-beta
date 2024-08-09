@@ -5,9 +5,9 @@ import { FaSearch, FaShoppingCart } from 'react-icons/fa'; // Correct import sta
 const Footer = () => {
   return (
     <div>
-      <FaSearch /> {/* Example usage of the FaSearch icon */}
-      <FaShoppingCart /> {/* Example usage of the FaShoppingCart icon */}
-      {/* Your Footer component code here */}
+      {/* <FaSearch /> {/* Example usage of the FaSearch icon */}
+      {/* <FaShoppingCart /> Example usage of the FaShoppingCart icon */}
+      {/* Your Footer component code here */} 
     </div>
   );
 };
