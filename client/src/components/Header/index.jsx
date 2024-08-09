@@ -2,11 +2,13 @@ import {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCogs, faUser, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import Cart from '../Cart/index';
 import Auth from '../../utils/auth';
 
 // Header component definition
-export default function Header() {
+const Header = ({ cart, setCart }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   // useNavigate hook to programmatically navigate to different routes
   const navigate = useNavigate();
 
@@ -16,7 +18,11 @@ export default function Header() {
 
   // Function to handle click event on the shopping cart icon
   const handleCartClick = () => {
-    navigate('/cart'); // Navigate to the cart page
+    setIsCartModalOpen(true) // Navigate to the cart page
+  };
+
+  const closeCartModal = () => {
+    setIsCartModalOpen(false); // Close the cart modal
   };
 
   // Function to handle click event on the user settings button
@@ -73,6 +79,16 @@ export default function Header() {
         )}
       </div>
       </div>
+      {isCartModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeCartModal}>&times;</span>
+            <Cart cart={cart} setCart={setCart} />
+          </div>
+        </div>
+      )}
     </header>
   );
 }
+
+ export default Header;

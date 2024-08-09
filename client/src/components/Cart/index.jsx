@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Cart({ cart = [], setCart }) {
+export default function Cart({ cart, setCart }) {
   const [productArray, setProductArray] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -44,13 +44,9 @@ export default function Cart({ cart = [], setCart }) {
               <span>${product.price.toFixed(2)}</span>
               <button onClick={() => removeFromCart(id)}>Remove</button>
             </div>
-          ) : (
-            <div key={id} className="cart-item">
-              <span>Loading...</span>
-            </div>
-          );
+          ) : null;
         })}
-      </div>
+        </div>
       <div className="cart-total">
         <h3>Total: ${total.toFixed(2)}</h3>
       </div>

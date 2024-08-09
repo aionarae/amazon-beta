@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
+import Cart from '../Cart/index';
+import { set } from 'mongoose';
 
-const Products = ({ cart, setCart }) => {
-  const [products, setProducts] = useState([]);
+const Products = ({ cart, setCart, setProducts }) => {
+  const [products, updateProducts] = useState([]);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
       .then(data => {
         console.log(data); // Log data to ensure title exists
-        setProducts(data);
+        updateProducts(data);
       })
       .catch(error => console.error('Error fetching products:', error));
   }, []);
@@ -17,7 +19,7 @@ const Products = ({ cart, setCart }) => {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
-  }, []);
+  }, [setCart]);
 
   // Save cart to localStorage
   useEffect(() => {
@@ -26,7 +28,7 @@ const Products = ({ cart, setCart }) => {
 
   // Function to add a product to the cart
   const handleAddToCart = (product) => {
-    setCart([...cart, product.id]);
+    setCart((prevCart) => [...prevCart, product.id]);
     console.log('Added to cart:', product);
   };
 
