@@ -40,7 +40,7 @@ function LandingPage() {
 
   return (
     <div>
-      <h1>Welcome to the landing page!</h1>
+      <h1>Welcome to the Store!</h1>
       <Search onSearch={onSearch} />
       <Products products={filteredProducts} cart={cart} setCart={setCart} setProducts={setProducts} />
     </div>

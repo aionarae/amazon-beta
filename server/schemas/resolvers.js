@@ -1,12 +1,15 @@
-const { Cart, Category, Order, OrderItem, Product, Review, User} = require('../models');
+const { Cart, Category, Order, OrderItem, Product, Review, User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
+    products: async () => {
+      return await Product.find().populate('category');
+    },
 
-    user: async () => {
-      return await User.find()
+    user: async (parent, { id }) => {
+      return await User.findById(id);
     },
 
     categories: async () => {
@@ -14,45 +17,47 @@ const resolvers = {
     },
 
     order: async (parent, { _id }) => {
-      return Order.findById(_id);
+      return await Order.findById(_id);
     },
 
-    // product
-    product: async (parent, { _id }) => {
-      return await Product.findById(_id).populate('category');
+    product: async (parent, { id }) => {
+      return await Product.findById(id).populate('category');
     },
 
-    // review
-    reviews: async (parent, { _id }) => {
-      return Review
+    review: async (parent, { id }) => {
+      return await Review.findById(id);
     },
-
   },
   Mutation: {
+    addProduct: async (parent, { input }) => {
+      const product = await Product.create(input);
+      return product;
+    },
+
     createUser: async (parent, { username, email, password }) => {
-        const user = await User.create({ username, email, password });
-        const token = signToken(user);
-        return { token, user };
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
     },
+
     login: async (parent, { username, email, password }) => {
-        const user = await User.findOne({ username, email });
-        if (!user) {
-            throw new AuthenticationError('Incorrect Uername or Password');
-        }
-        const correctPw = await user.isCorrectPassword(password);
-        if (!correctPw) {
-            throw new AuthenticationError('Incorrect Username or Password');
-        }
-        const token = signToken(user);
-        return { token, user };
+      const user = await User.findOne({ username, email });
+      if (!user) {
+        throw new AuthenticationError('Incorrect Username or Password');
+      }
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect Username or Password');
+      }
+      const token = signToken(user);
+      return { token, user };
     },
+
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
       await Order.create({ products: args.products.map(({ _id }) => _id) });
-      // eslint-disable-next-line camelcase
       const line_items = [];
 
-      // eslint-disable-next-line no-restricted-syntax
       for (const product of args.products) {
         line_items.push({
           price_data: {
@@ -75,8 +80,10 @@ const resolvers = {
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${url}/`,
       });
+
+      return { id: session.id, products: args.products, total: session.amount_total / 100 };
+    },
   },
-}};
-  
+};
+
 module.exports = resolvers;
-  
