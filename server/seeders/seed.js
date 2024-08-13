@@ -1,121 +1,135 @@
 const db = require ('../config/connection');
 const { User, Category, Product, Order, Review } = require ('../models');
 const cleanDb = require ('../config/cleanDB');
+// faker is alibrary that generates fake data
+const { faker } = require('@faker-js/faker');
+
+function createArray(length, funct, ...args){
+  let i = 0;
+  let arr = [];
+  
+  while (i < length) {
+   arr.push(funct(...args));
+    i++;
+  }
+  console.log(arr);
+  return arr;
+}
+
+function createRandomUser () {
+  return {
+    name: faker.person.fullName(),
+    username: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+    role: 'user',
+    status: 'active',
+  };
+  
+}
+
+function createRandomCategory () {
+  return {
+    name: faker.commerce.department(),
+    description: faker.commerce.productDescription(),
+    image: faker.image.url(),
+    status: 'active',
+  };
+}
+
+function createRandomProduct (categories) {
+  return {
+    name: faker.commerce.productName(),
+    description: faker.commerce.productDescription(),
+    image: faker.image.url(),
+    price: faker.commerce.price(),
+    quantity: faker.number.int({max: 100}),
+    category: faker.helpers.arrayElement(categories)._id,
+    status: 'active',
+  };
+}
+
+function createRandomOrder (users,products) {
+  return {
+    user: faker.helpers.arrayElement(users)._id,
+    products: [
+      {
+        product: faker.helpers.arrayElement(products)._id,
+        quantity: faker.number.int({max: 100}),
+      },
+      {
+        product: faker.helpers.arrayElement(products)._id,
+        quantity: faker.number.int({max: 100}),
+      },
+    ],
+    total: faker.commerce.price(),
+    status: faker.helpers.arrayElement(['complete', 'pending']),
+  };
+}
+
+function createRandomReview (users, products) {
+  return {
+    review: faker.lorem.paragraph(),
+    rating: faker.number.int( { min: 0, max: 5 }),
+    user: faker.helpers.arrayElement(users)._id,
+    product: faker.helpers.arrayElement(products)._id,
+  };
+}
+
+
+db.on ('error', console.error.bind (console, 'MongoDB connection error:'));
 
 db.once ('open', async () => {
+  try { 
     await cleanDb ('User', 'users');
     await cleanDb ('Category', 'categories');
     await cleanDb ('Product', 'products');
     await cleanDb ('Order', 'orders');
     await cleanDb ('Review', 'reviews');
 
-    const users = await User.insertMany ([
-      {
-        name: 'Test User',
-        username: 'testUser',
-        email: 'test@test.com',
-        password: 'password1234',
-        role: 'admin',
-        status: 'active',
-      },
-      {
-        name: 'Test User 2',
-        username: 'testUser2',
-        email: 'test@test.com',
-        password: 'password1234',
-        role: 'user',
-        status: 'active',
-      }
-    ]);
+    const adminUser = {
+      name: 'Admin User',
+      username: 'adminUser',
+      email: 'admin@admin.com',
+      password: 'adminpassword1234',
+      role: 'admin',
+      status: 'active',
+    };
+    
+    const users = await User.insertMany(
+      createArray(5, createRandomUser)
+    );  
 
-    console.log ('Users seeded');
+    console.log ('Users seeded', users);
 
-    const categories = await Category.insertMany ([
-      {
-        name: 'Category 1', 
-        description: 'Category 1 descriptionn',
-        image: 'category1.jpg',
-        status: 'active',
-      },
-      {
-        name: 'Category 2',
-        description: 'Category 2 description',
-        image: 'category2.jpg',
-        status: 'active',
-      }
-    ]);
+    const categories = await Category.insertMany (
+      createArray(5, createRandomCategory)
+    )
 
-    console.log ('Categories seeded');
+    console.log ('Categories seeded: ', categories);
 
-    const products = await Product.insertMany ([
-      {
-        name: 'Product 1',
-        description: 'Product 1 description',
-        image: 'product1.jpg',
-        price: 9.99,
-        quantity: 10,
-        category: categories[0]._id,
-        status: 'active',
-      },
-      {
-        name: 'Product 2',
-        description: 'Product 2 description',
-        price: 19.99,
-        quantity: 20,
-        category: categories[1]._id,
-        status: 'active',
-      }
-    ]);
+    const products = await Product.insertMany (
+      createArray(5, createRandomProduct, categories)
+    );
 
     console.log ('Products seeded');
 
-    const orders = await Order.insertMany ([
-      {
-        user: users[0]._id,
-        products: [
-          {
-            product: products[0]._id,
-            quantity: 2
-          },
-          {
-            product: products[1]._id,
-            quantity: 1
-          }
-        ],
-        total: 39.97,
-        status: 'complete',
-      },
-      {
-        user: users[1]._id,
-        products: [
-          {
-            product: products[1]._id,
-            quantity: 3
-          }
-        ],
-        total: 59.97,
-        status: 'pending',
-      }
-    ]);
+    const orders = await Order.insertMany (
+      createArray(5, createRandomOrder, users, products)
+    );
 
-    console.log ('Orders seeded');
+    console.log ('Orders seeded:', orders);
 
-    const reviews = await Review.insertMany ([
-      {
-        review: 'Review 1',
-        rating: 5,
-        user: users[0]._id,
-        product: products[0]._id,
-      },
-      {
-        review: 'Review 2',
-        rating: 4,
-        user: users[1]._id,
-        product: products[1]._id,
-      }
-    ]);
+    const reviews = await Review.insertMany (
+      createArray(5, createRandomReview, users,  products)
+    );
 
-    console.log ('Reviews seeded');
+    console.log ('Reviews seeded', reviews);
 
     process.exit ();
+
+  } catch (error) {
+    console.error ("Error seeding data:", error);
+    process.exit (1);
+  }
 });
