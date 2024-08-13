@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-
+  // actually needs first name and last name
   name: {
     type: String,
     required: false,
