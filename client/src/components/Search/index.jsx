@@ -1,4 +1,4 @@
-import { useFilter } from '../context/FilterContext';
+import { useFilter } from '../Context/FilterContext';
 
 const Search = () => {
   const { searchTerm, setSearchTerm, selectedCategory, setSelectedCategory } = useFilter();
