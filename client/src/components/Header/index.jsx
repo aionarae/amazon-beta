@@ -7,6 +7,7 @@ import AzLogo from '../../../public/assets/logo.png';
 import Cart from '../Cart/index';
 import Auth from '../../utils/auth';
 import Search from '../Search/index';
+// import logo from '../../assets/logo.png';
 
 const Header = ({ cart, setCart, onSearch }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

@@ -296,7 +296,7 @@ header {
 }
 
 /* Button styling */
-.search-bar button {
+/* .search-bar button {
   background: #007bff;
   border: none;
   border-radius: 50%;
@@ -305,7 +305,7 @@ header {
   color: #fff;
   font-size: 1rem;
   transition: background-color 0.3s;
-}
+} */
 
 /* Hover effect for button */
 .search-bar button:hover {
