@@ -1,19 +1,30 @@
 import { useState, useEffect } from 'react';
+import { useFilter } from '../Context/FilterContext';
 import Cart from '../Cart/index';
-import { set } from 'mongoose';
 
-const Products = ({ cart, setCart, setProducts }) => {
-  const [products, updateProducts] = useState([]);
+const Products = ({ cart, setCart }) => {
+  const { searchTerm, selectedCategory } = useFilter(); // Use context
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
       .then(data => {
-        console.log(data); // Log data to ensure title exists
-        updateProducts(data);
+        setProducts(data);
+        setFilteredProducts(data); // Set initial products
       })
       .catch(error => console.error('Error fetching products:', error));
   }, []);
+
+  useEffect(() => {
+    const filtered = products.filter(product => {
+      const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+    setFilteredProducts(filtered);
+  }, [searchTerm, selectedCategory, products]);
 
   // Load cart from localStorage
   useEffect(() => {
@@ -28,18 +39,22 @@ const Products = ({ cart, setCart, setProducts }) => {
 
   // Function to add a product to the cart
   const handleAddToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product.id]);
+    setCart(prevCart => [...prevCart, product.id]);
     console.log('Added to cart:', product);
+  };
+
+  const handleBuyNow = (product) => {
+    console.log('Buy now clicked for:', product);
   };
 
   return (
     <div className="products-container">
       <h1>Product List</h1>
-      {products.length === 0 ? (
-        <p>Loading...</p>
+      {filteredProducts.length === 0 ? (
+        <p>No products found.</p>
       ) : (
         <div className="products-grid">
-          {products.map(product => (
+          {filteredProducts.map(product => (
             <div className="product-card" key={product.id}>
               <img src={product.image} alt={product.title} className="product-image" />
               <h2 className="product-title">{product.title}</h2>
@@ -67,4 +82,3 @@ const Products = ({ cart, setCart, setProducts }) => {
 }
 
 export default Products;
-

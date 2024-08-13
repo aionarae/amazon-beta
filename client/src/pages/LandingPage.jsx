@@ -1,4 +1,5 @@
 import { useOutletContext } from 'react-router-dom';
+import Search from '../components/Search/index';
 import Menu from '../components/Menu/index';
 import Card from '../components/General/index';
 import Cart from '../components/Cart/index';
@@ -56,5 +57,4 @@ function LandingPage() {
 }
 
 export default LandingPage;
-
 
