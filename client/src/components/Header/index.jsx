@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCogs, faUser, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import AzLogo from '../../assets/logo.png';
+import AzLogo from '../../../public/assets/logo.png';
 import Cart from '../Cart/index';
 import Auth from '../../utils/auth';
 import Search from '../Search/index';
