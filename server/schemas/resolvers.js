@@ -8,7 +8,7 @@ const resolvers = {
       return await Product.find().populate('category');
     },
 
-    user: async (parent, { id }) => {
+    users: async (parent, { id }) => {
       return await User.findById(id);
     },
 
@@ -16,15 +16,15 @@ const resolvers = {
       return await Category.find();
     },
 
-    order: async (parent, { _id }) => {
+    orders: async (parent, { _id }) => {
       return await Order.findById(_id);
     },
 
-    product: async (parent, { id }) => {
+    products: async (parent, { id }) => {
       return await Product.findById(id).populate('category');
     },
 
-    review: async (parent, { id }) => {
+    reviews: async (parent, { id }) => {
       return await Review.findById(id);
     },
   },

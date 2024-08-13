@@ -63,11 +63,10 @@ const typeDefs = gql`
 
   type Query {
     products: [Product!]!
-    user(id: ID!): User
+    users: User
     categories: [Category]
-    order(_id: ID!): Order
-    product(id: ID!): Product 
-    review(id: ID!): Review
+    orders(_id: ID!): Order
+    reviews(id: ID!): Review
   }
 
   type Mutation {

@@ -1,3 +1,4 @@
+
 import { useFilter } from '../Context/FilterContext';
 
 const Search = () => {
@@ -5,13 +6,8 @@ const Search = () => {
 
   return (
     <div className="search-container">
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
       <select
+        className="category-dropdown"
         value={selectedCategory}
         onChange={(e) => setSelectedCategory(e.target.value)}
       >
@@ -21,6 +17,17 @@ const Search = () => {
         <option value="men's clothing">Men's Clothing</option>
         <option value="women's clothing">Women's Clothing</option>
       </select>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type="button">
+          <FaSearch />
+        </button>
+      </div>
     </div>
   );
 };
