@@ -1,6 +1,5 @@
-import { useFilter } from '../context/FilterContext';
-import { FaSearch } from 'react-icons/fa'; 
-import '../../App.css'; 
+
+import { useFilter } from '../Context/FilterContext';
 
 const Search = () => {
   const { searchTerm, setSearchTerm, selectedCategory, setSelectedCategory } = useFilter();
