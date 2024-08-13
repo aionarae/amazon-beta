@@ -1,14 +1,12 @@
-
 import { useOutletContext } from 'react-router-dom';
-import Search from '../components/Search/index'
-import Menu from '../components/Menu/index'
-import Card from '../components/General/index'
-import Cart from '../components/Cart/index'
-import Products from '../components/Products/Products'
+import Menu from '../components/Menu/index';
+import Card from '../components/General/index';
+import Cart from '../components/Cart/index';
+import Products from '../components/Products/Products';
 import { useState, useEffect } from 'react';
 
 function LandingPage() {
-  const {cart, setCart} = useOutletContext();
+  const { cart, setCart } = useOutletContext();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,10 +36,20 @@ function LandingPage() {
     setSelectedCategory(category);
   };
 
+  const styles = {
+    container: {
+      textAlign: 'center',
+      padding: '20px',
+    },
+    heading: {
+      color: '#333',
+      fontSize: '2em',
+    },
+  };
+
   return (
-    <div>
-      <h1>Welcome to the Store!</h1>
-      <Search onSearch={onSearch} />
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Welcome to the Store!</h1>
       <Products products={filteredProducts} cart={cart} setCart={setCart} setProducts={setProducts} />
     </div>
   );
