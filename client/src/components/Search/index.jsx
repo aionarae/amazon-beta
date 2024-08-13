@@ -1,61 +1,28 @@
-// src/components/Search/index.jsx
-import { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useFilter } from '../context/FilterContext';
 
-export default function Search({ onSearch }) {
-  const [categories, setCategories] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
-  // Fetch categories when component mounts
-  useEffect(() => {
-    fetch('https://fakestoreapi.com/products/categories')
-      .then((res) => res.json())
-      .then((data) => setCategories(['All', ...data]))
-      .catch((error) => console.error('Error fetching categories:', error));
-  }, []);
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
-
-  const handleSearchClick = () => {
-    if (typeof onSearch === 'function') {
-      onSearch(searchTerm, selectedCategory); // Call the function passed as a prop
-    } else {
-      console.error('onSearch is not a function');
-    }
-  };
+const Search = () => {
+  const { searchTerm, setSearchTerm, selectedCategory, setSelectedCategory } = useFilter();
 
   return (
     <div className="search-container">
+      <input
+        type="text"
+        placeholder="Search products..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <select
-        className="category-dropdown"
         value={selectedCategory}
-        onChange={handleCategoryChange}
+        onChange={(e) => setSelectedCategory(e.target.value)}
       >
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
+        <option value="All">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="jewelery">Jewelery</option>
+        <option value="men's clothing">Men's Clothing</option>
+        <option value="women's clothing">Women's Clothing</option>
       </select>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search for a product"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-        <button onClick={handleSearchClick}>
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
-      </div>
     </div>
   );
-}
+};
+
+export default Search;

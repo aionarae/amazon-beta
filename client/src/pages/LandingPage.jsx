@@ -1,14 +1,10 @@
-
 import { useOutletContext } from 'react-router-dom';
-import Search from '../components/Search/index'
-import Menu from '../components/Menu/index'
-import Card from '../components/General/index'
-import Cart from '../components/Cart/index'
-import Products from '../components/Products/Products'
+import Search from '../components/Search/index';
+import Products from '../components/Products/Products';
 import { useState, useEffect } from 'react';
 
 function LandingPage() {
-  const {cart, setCart} = useOutletContext();
+  const { cart, setCart } = useOutletContext();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -48,5 +44,4 @@ function LandingPage() {
 }
 
 export default LandingPage;
-
 

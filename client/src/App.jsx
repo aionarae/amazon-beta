@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import Header from './components/Header/index'; // Ensure Header is imported
 import Footer from './components/Footer/index';
+import { FilterProvider } from './components/Context/FilterContext'; // Import the context provider
 import './App.css';
 import './index.css';
 
@@ -22,11 +23,13 @@ function App() {
   const [cart, setCart] = useState([]);
   return (
     <ApolloProvider client={client}>
-      <Header cart={cart} setCart={setCart} />
-      <main>
-        <Outlet context={{ cart, setCart }}/>
-      </main>
-      <Footer /> 
+      <FilterProvider> 
+        <Header cart={cart} setCart={setCart} />
+        <main>
+          <Outlet context={{ cart, setCart }} />
+        </main>
+        <Footer />
+      </FilterProvider>
     </ApolloProvider>
   );
 }
