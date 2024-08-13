@@ -262,7 +262,7 @@ header {
   border: 2px solid #080808;
   border-radius: 20px;
   margin-right: 0.5rem;
-  background-color: #140b0b;
+  background-color: #f8f1f1;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   transition: border-color 0.3s;
 }
@@ -357,4 +357,61 @@ header {
 .search-result-item p {
   font-size: 1rem;
   color: #333;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #2d3748; /* Tailwind's bg-gray-800 */
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.footer .footer-message {
+  font-size: 1.125rem; /* Tailwind's text-lg */
+  margin-bottom: 0.5rem; /* Reduced margin-bottom */
+}
+
+.footer .team-members {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.footer .team-member {
+  background-color: #4a5568; /* Tailwind's bg-gray-700 */
+  padding: 0.75rem; /* Reduced padding */
+  border-radius: 0.5rem; /* Tailwind's rounded-lg */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.25rem;
+}
+
+.footer .team-member a {
+  color: white;
+  transition: color 0.3s;
+}
+
+.footer .team-member a:hover {
+  color: #a0aec0; /* Tailwind's hover:text-gray-400 */
+}
+
+.footer .team-member .icon {
+  width: 2rem; /* Tailwind's w-8 */
+  height: 2rem; /* Tailwind's h-8 */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the entire area */
+}
+
+.footer .team-member .profile-pic {
+  width: 3rem; /* Reduced width for the profile picture */
+  height: 3rem; /* Reduced height for the profile picture */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the entire area */
+}
+
+.footer .team-member .name {
+  font-size: 0.875rem; /* Tailwind's text-sm */
+  margin-top: 0.25rem; /* Reduced margin-top */
 }
