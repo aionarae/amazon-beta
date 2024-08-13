@@ -16,13 +16,13 @@
 /* Products.css */
 
 .products-container {
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .products-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Space between cards */
+  gap: 10px; /* Space between cards */
 }
 
 .product-card {
@@ -37,6 +37,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Push content to the top and buttons to the bottom */
+}
+
+.product-card:hover {
+  border-color: var(--battleship-grey); /* Slight grey outline on hover */
 }
 
 .product-image {
@@ -314,6 +318,17 @@ header {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+@media (min-width: 800px) {
+  .search-container {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .search-bar {
+    margin-top: 0.5rem;
+  }
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
   .search-container {
@@ -437,3 +452,4 @@ header {
   flex-direction: row;
   align-items: center; /* Optional: Align items vertically centered */
 }
+
