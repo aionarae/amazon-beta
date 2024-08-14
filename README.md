@@ -1,4 +1,4 @@
-# amazon-beta ![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
+# Amazon Beta ![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)
 Imagine an online marketplace that combines the vast selection of Amazon with the personalized service of a boutique shop. Our e-commerce platform offers customers a curated shopping experience with unique, high-quality products that can’t be found anywhere else. We empower sellers with lower fees and provide buyers with a seamless, secure, and eco-friendly shopping experience. Whether you're looking for exclusive items or just a better way to shop online, our platform is the smart, customer-first alternative to Amazon.
 
 ## Table Of Contents
