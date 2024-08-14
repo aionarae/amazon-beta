@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import Header from './components/Header/index';
 import Footer from './components/Footer/index';
-import { FilterProvider } from './components/context/FilterContext';
+import { FilterProvider } from './components/Context/FilterContext';
 import AccountInfo from './pages/AccountInfo';
 import './App.css';
 import './index.css';
