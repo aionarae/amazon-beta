@@ -6,6 +6,7 @@ const Search = () => {
 
   return (
     <div className="search-container">
+      <div className="search-bar">
       <select
         className="category-dropdown"
         value={selectedCategory}
@@ -17,7 +18,6 @@ const Search = () => {
         <option value="men's clothing">Men's Clothing</option>
         <option value="women's clothing">Women's Clothing</option>
       </select>
-      <div className="search-bar">
         <input
           type="text"
           placeholder="Search products..."
@@ -25,7 +25,7 @@ const Search = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button type="button">
-          <FaSearch />
+          {/* <FaSearch /> */}
         </button>
       </div>
     </div>
