@@ -19,11 +19,11 @@ So that I can purchase the items I need without spending hours searching, and ha
 
 <a name="install"></a>
 ## Installation
-insert render link
+Enter https://amazon-beta.onrender.com in web browser
 
 <a name="use"></a>
 ## Usage
-insert deployed app SS
+![AppScrenShot.png](https://github.com/aionarae/amazon-beta/blob/main/AppScreenShot.png)
 
 <a name="contributing"></a>
 ## Contributing
